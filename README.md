@@ -120,8 +120,27 @@ screenshot of the module project after including to the solution under OrchardCo
 
 ![The module project after including in the solution](./assets/images/the-module-project-after-including-in-the-solution.png)
 
-- Go to **OrchardCore.Application.Cms.Targets** project and add **Codesanook.Map** as a project reference.
+- Go to **OrchardCore.Application.Cms.Targets** project which is under **src/Targets** folder and add **Codesanook.Map** as a project reference.
   This will include our project as part of a website modules.
+- Open OrchardCore.Application.Cms.Targets.csproj file and add attribute PrivateAssets="none" to ProjectReference element of Codesanook.Map.
+- Save all changes
+
+Here is Codesanook.Map reference code in OrchardCore.Application.Cms.Targets.csproj.
+
+```
+
+<ProjectReference Include="..\..\OrchardCore.Modules\Codesanook.Map\Codesanook.Map.csproj" PrivateAssets="none"/>
+
+```
+
+## Restore all nuget packages
+
+- CD src/OrchardCore.Cms.Web and run the following command
+- _Note_ Please make sure you save all changes before running the command.
+
+```
+dotnet restore
+```
 
 ## Launch Orchard website
 
@@ -133,8 +152,12 @@ dotnet watch run
 
 - Open a browser and you will find a website on https://localhost:5001
 
-- Set up a new website have you haven't setup it, use **blog recipe** and use local SQL Server as database.
-- Go to admin panel by nativate to https://localhost:5001/admin
+- Set up a new website have you haven't setup it, use **blog recipe**
+- Use local SQL Server as database. You need to create an empty database in your local SQL Server before setting up a website.
+- Here is an example of SA connection string _"Server=localhost;Database=Codesanook;User Id=sa;Password=your-password"_
+- Set admin username and email to what ever you want.
+- Go to admin panel by nativate to https://localhost:5001/admin and log in with your admin's username and password.
+- Tip, you can put **chrome://flags/#allow-insecure-localhost** in Chrome's address bar, enable that setting and relanch Chrome to not show warning message on localhost.
 - On the left-hand side menu, Go to Configuration > Features
 - Search for **Codesanook.Map** and you will find it has not been enable yet.
 - We will be back to enable it later after we have updated our module and our Map part is ready to use.
